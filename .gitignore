@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Abby.Web/appsettings.json
+/Abby.Web/appsettings.Development.json
