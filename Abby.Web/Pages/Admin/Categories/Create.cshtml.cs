@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Abby.DataAccess.Data;
 using Abby.Models;
+using Abby.DataAccess.Repository.IRepository;
 
 namespace Abby.Web.Pages.Admin.Categories
 {
     [BindProperties]
     public class CreateModel : PageModel
     {
-        private readonly AppDbContext _context;
-        public CreateModel(AppDbContext context)
+        private readonly IUnitOfWork _unitOfWork;
+        public CreateModel(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
         public Category Category { get; set; }
         public void OnGet()
@@ -22,8 +22,8 @@ namespace Abby.Web.Pages.Admin.Categories
         {
             if(ModelState.IsValid)
             {
-                _context.Categories.Add(Category);
-                _context.SaveChanges();
+                _unitOfWork.CategoryRepository.Add(Category);
+                _unitOfWork.CategoryRepository.Save();
                 TempData["success"] = "Category created successfully.";
                 return RedirectToPage(nameof(Index));
             }

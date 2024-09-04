@@ -1,0 +1,72 @@
+﻿@page
+@model Abby.Web.Pages.Admin.MenuItems.UpsertModel
+
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="@Model.MenuItem.Id" hidden />
+    <input asp-for="@Model.MenuItem.ImageUrl" hidden />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <div class="col-9">
+                <h2 class="text-primary pl-3">
+                    @(Model.MenuItem.Id > 0 ? "Update" : "Create") Menu Item
+                </h2>
+                <hr />
+
+                <div class="mb-3">
+                    <label asp-for="@Model.MenuItem.Name"></label>
+                    <input asp-for="@Model.MenuItem.Name" class="form-control" />
+                    <span asp-validation-for="@Model.MenuItem.Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="@Model.MenuItem.Description"></label>
+                    <textarea asp-for="@Model.MenuItem.Description" rows="3" class="form-control"></textarea>
+                    <span asp-validation-for="@Model.MenuItem.Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="@Model.MenuItem.Price"></label>
+                    <input asp-for="@Model.MenuItem.Price" class="form-control" multiple />
+                    <span asp-validation-for="@Model.MenuItem.Price" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="@Model.MenuItem.ImageUrl"></label>
+                    <input type="file" name="files" id="uploadBox" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="@Model.MenuItem.CategoryId"></label>
+                    <select asp-items="@Model.CategoryList" asp-for="@Model.MenuItem.CategoryId" class="form-select">
+                        <option disabled selected>-Select Category-</option>
+                    </select>
+                    <span asp-validation-for="@Model.MenuItem.CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="@Model.MenuItem.FoodTypeId"></label>
+                    <select asp-items="@Model.FoodTypeList" asp-for="@Model.MenuItem.FoodTypeId" class="form-select">
+                        <option disabled selected>-Select Food Type-</option>
+                    </select>
+                    <span asp-validation-for="@Model.MenuItem.FoodTypeId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-3">
+                @if(Model.MenuItem.Id > 0)
+                {
+                    <img src="@Model.MenuItem.ImageUrl" width="100%" class="border-radius:5px;border:1px solid #bbb9b9;" />
+                }
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">
+            @(Model.MenuItem.Id > 0 ? "Update" : "Create")
+        </button>
+        <a asp-page="Index" class="btn btn-secondary" style="width:150px">Back to list</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

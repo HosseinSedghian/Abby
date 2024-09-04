@@ -1,29 +1,29 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Abby.DataAccess.Data;
 using Abby.Models;
+using Abby.DataAccess.Repository.IRepository;
 
 namespace Abby.Web.Pages.Admin.Categories
 {
     [BindProperties]
     public class EditModel : PageModel
     {
-        private readonly AppDbContext _context;
-        public EditModel(AppDbContext context)
+        private readonly IUnitOfWork _unitOfWork;
+        public EditModel(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
         public Category Category { get; set; }
         public void OnGet(int id)
         {
-            Category = _context.Categories.FirstOrDefault(c => c.Id == id);
+            Category = _unitOfWork.CategoryRepository.GetFirstOrDefault(c => c.Id == id);
         }
         public IActionResult OnPost()
         {
             if (ModelState.IsValid)
             {
-                _context.Categories.Update(Category);
-                _context.SaveChanges();
+                _unitOfWork.CategoryRepository.Update(Category);
+                _unitOfWork.CategoryRepository.Save();
                 TempData["success"] = "Category updated successfully.";
                 return RedirectToPage(nameof(Index));
             }

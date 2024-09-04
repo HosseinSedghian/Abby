@@ -1,14 +1,14 @@
 ﻿@page
-@model Abby.Web.Pages.Admin.FoodTypes.IndexModel
+@model Abby.Web.Pages.Admin.MenuItems.IndexModel
 
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Food Types List</h2>
+            <h2 class="text-primary">Menu Item List</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-page="Create" class="btn btn-primary">
-                <i class="bi bi-pencil-square"></i>&nbsp;Create New Food Type
+            <a asp-page="Upsert" class="btn btn-primary">
+                <i class="bi bi-pencil-square"></i>&nbsp;Create New Menu Item
             </a>
         </div>
     </div>
@@ -19,21 +19,27 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>FoodType</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach(var ft in Model.FoodTypes)
+            @foreach (var mi in Model.MenuItems)
             {
                 <tr>
-                    <td>@ft.Id</td>
-                    <td>@ft.Name</td>
+                    <td>@mi.Id</td>
+                    <td>@mi.Name</td>
+                    <td>@mi.Price</td>
+                    <td>@mi.Category.Name</td>
+                    <td>@mi.FoodType.Name</td>
                     <td>
                         <div class="w-75 btn-group" role="group">
-                            <a asp-page="Edit" asp-route-id="@ft.Id" class="btn btn-primary mx-2">
+                            <a asp-page="Upsert" asp-route-id="@mi.Id" class="btn btn-primary mx-2">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a asp-page="Delete" asp-route-id="@ft.Id" class="btn btn-danger mx-2">
+                            <a asp-page="Delete" asp-route-id="@mi.Id" class="btn btn-danger mx-2">
                                 <i class="bi bi-trash"></i>
                             </a>
                         </div>

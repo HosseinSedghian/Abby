@@ -1,9 +1,9 @@
-using Abby.DataAccess.Repository.IRepository;
-using Abby.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Abby.DataAccess.Repository.IRepository;
+using Abby.Models;
 
-namespace Abby.Web.Pages.Admin.FoodTypes
+namespace Abby.Web.Pages.Admin.MenuItems
 {
     [BindProperties]
     public class IndexModel : PageModel
@@ -13,10 +13,12 @@ namespace Abby.Web.Pages.Admin.FoodTypes
         {
             _unitOfWork = unitOfWork;
         }
-        public List<FoodType> FoodTypes { get; set; }
+        public List<MenuItem> MenuItems { get; set; }
         public void OnGet()
         {
-            FoodTypes = _unitOfWork.FoodTypeRepository.GetAll().ToList();
+            MenuItems = _unitOfWork.MenuItemRepository
+                .GetAll(includeProperties:$"{nameof(MenuItem.Category)},{nameof(MenuItem.FoodType)}")
+                .ToList();
         }
     }
 }

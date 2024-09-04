@@ -1,20 +1,22 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Abby.DataAccess.Data;
 using Abby.Models;
+using Microsoft.AspNetCore.Mvc;
+using Abby.DataAccess.Repository.IRepository;
 
 namespace Abby.Web.Pages.Admin.Categories
 {
+    [BindProperties]
     public class IndexModel : PageModel
     {
-        private readonly AppDbContext _context;
-        public List<Category> _Categories;
-        public IndexModel(AppDbContext context)
+        private readonly IUnitOfWork _unitOfWork;
+        public IndexModel(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
+        public List<Category> _Categories;
         public void OnGet()
         {
-            _Categories = _context.Categories.ToList();
+            _Categories = _unitOfWork.CategoryRepository.GetAll().ToList();
         }
     }
 }
