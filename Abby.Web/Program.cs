@@ -2,6 +2,9 @@ using Abby.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Abby.DataAccess.Repository.IRepository;
 using Abby.DataAccess.Repository;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Abby.Utility;
 namespace Abby.Web
 {
     public class Program
@@ -15,7 +18,12 @@ namespace Abby.Web
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddSingleton<IEmailSender, EmailSender>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

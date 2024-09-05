@@ -10,7 +10,8 @@ namespace Abby.DataAccess.Repository.IRepository
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entityList);
         IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null,
-            string? includeProperties = null);
+            string? includeProperties = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>>? orderby = null);
         T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null,
             string? includeProperties = null);
         void Save();

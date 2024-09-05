@@ -20,7 +20,9 @@ namespace Abby.DataAccess.Repository
             dbSet.Add(entity);
         }
         // include proprs - comma separated.
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null,
+            string? includeProperties = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>>? orderby = null)
         {
             IQueryable<T> query = dbSet;
             if (filter != null)
@@ -34,7 +36,7 @@ namespace Abby.DataAccess.Repository
                     query = query.Include(property);
                 }
             }
-            return query.ToList();
+            return orderby == null ? query.ToList() : orderby(query).ToList();
         }
 
         public T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
