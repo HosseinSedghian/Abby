@@ -4,6 +4,10 @@ namespace Abby.Models
 {
     public class ShoppingCart
     {
+        public ShoppingCart()
+        {
+            Count = 1;
+        }
         [Key]
         public int Id { get; set; }
         [Required]

@@ -32,7 +32,7 @@ namespace Abby.Web.Pages.Customer.Cart
             OrderHeader.PickupName = $"{user.FirstName} {user.LastName}";
             OrderHeader.PhoneNumber = user.PhoneNumber;
         }
-        public void OnPost()
+        public IActionResult OnPost()
         {
             ModelState.Remove($"{nameof(OrderHeader)}.{nameof(ApplicationUser)}");
             ModelState.Remove($"{nameof(OrderHeader)}.{nameof(OrderHeader.Status)}");
@@ -68,7 +68,9 @@ namespace Abby.Web.Pages.Customer.Cart
                 }
                 _unitOfWork.ShoppingCartRepository.RemoveRange(ShoppingCarts);
                 _unitOfWork.ShoppingCartRepository.Save();
+                return RedirectToPage("Payment", new { orderId = OrderHeader.Id});
             }
+            return Page();
         }
     }
 }
