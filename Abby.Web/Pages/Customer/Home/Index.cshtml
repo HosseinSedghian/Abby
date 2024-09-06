@@ -23,11 +23,11 @@
                                 <div class="col-6 border-0">
                                     <span class="badge p-2 border w-100 bg-info ">@menuItem.FoodType.Name</span>
                                 </div>
-                                <div class="col-12 pt-2" style="font-size:13px; text-align:justify">
+                                <div class="col-12 pt-2" style="font-size:13px; text-align:justify;height:210px;overflow:auto">
                                     <p> @Html.Raw(menuItem.Description.Replace("\n", "<br />"))</p>
                                 </div>
                                 <div class="col-12 p-1">
-                                    <a asp-page="Details" asp-route-id="@menuItem.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">View Details</a>
+                                    <a asp-page="Details" asp-route-id="@menuItem.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">Order</a>
                                 </div>
                             </div>
                         </div>

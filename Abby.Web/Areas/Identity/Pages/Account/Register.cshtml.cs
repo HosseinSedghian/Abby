@@ -155,8 +155,6 @@ namespace Abby.Web.Areas.Identity.Pages.Account
                             await _userManager.AddToRoleAsync(user, SD.CustomerRole); break;
                     }
 
-
-
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

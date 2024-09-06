@@ -1,12 +1,14 @@
 using Abby.DataAccess.Repository.IRepository;
 using Abby.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace Abby.Web.Pages.Customer.Home
 {
     [BindProperties]
+    [Authorize]
     public class DetailsModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -14,15 +16,44 @@ namespace Abby.Web.Pages.Customer.Home
         {
             _unitOfWork = unitOfWork;
         }
-        public MenuItem MenuItem { get; set; }
-        [Range(1, 100, ErrorMessage = "Please select a count between 1 and 100.")]
-        public int Count { get; set; }
+        public ShoppingCart ShoppingCart { get; set; }
         public void OnGet(int id)
         {
-            MenuItem = _unitOfWork.MenuItemRepository
+            ShoppingCart = new ShoppingCart();
+            ShoppingCart.MenuItem = _unitOfWork.MenuItemRepository
                 .GetFirstOrDefault(filter:x => x.Id == id,
                 includeProperties:$"{nameof(Category)},{nameof(FoodType)}");
+            ShoppingCart.MenuItemId = ShoppingCart.MenuItem.Id;
+        }
+        public IActionResult OnPost()
+        {
+            ModelState.Remove($"{nameof(ShoppingCart)}.{nameof(MenuItem)}");
+            ModelState.Remove($"{nameof(ShoppingCart)}.{nameof(ApplicationUser)}");
+            ModelState.Remove($"{nameof(ShoppingCart)}.{nameof(ShoppingCart.ApplicationUserId)}");
 
+            if (ModelState.IsValid)
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                ShoppingCart.ApplicationUserId = claim.Value;
+
+                var cartFromDb = _unitOfWork.ShoppingCartRepository.GetFirstOrDefault(filter: x =>
+                        x.ApplicationUserId == claim.Value && x.MenuItemId == ShoppingCart.MenuItemId);
+                if (cartFromDb != null)
+                {
+                    _unitOfWork.ShoppingCartRepository.IncrementCount(ref cartFromDb, ShoppingCart.Count);
+                    _unitOfWork.ShoppingCartRepository.Update(cartFromDb);
+
+                }
+                else
+                {
+                    _unitOfWork.ShoppingCartRepository.Add(ShoppingCart);
+                }
+                _unitOfWork.ShoppingCartRepository.Save();
+                TempData["success"] = "Shopping cart added successfully.";
+                return RedirectToPage(nameof(Index));
+            }
+            return Page();
         }
     }
 }
