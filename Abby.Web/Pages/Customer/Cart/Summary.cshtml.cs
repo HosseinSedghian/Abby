@@ -46,7 +46,7 @@ namespace Abby.Web.Pages.Customer.Cart
                 ShoppingCarts = _unitOfWork.ShoppingCartRepository.GetAll(filter: x => x.ApplicationUserId == claim.Value,
                 includeProperties: $"{nameof(MenuItem)}").ToList();
                 OrderHeader.OrderTotalPrice = ShoppingCarts.Sum(x => x.MenuItem.Price * x.Count);
-                OrderHeader.Status = SD.StatusPending;
+                OrderHeader.Status = SD.StatusPendingPayment;
                 OrderHeader.OrderDate = DateTime.Now;
                 OrderHeader.ApplicationUserId = claim.Value;
                 OrderHeader.PickupTime = Convert.ToDateTime(OrderHeader.PickupDate.ToShortDateString() + " " +

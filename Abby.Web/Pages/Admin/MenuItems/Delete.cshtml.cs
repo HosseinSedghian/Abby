@@ -1,11 +1,13 @@
 using Abby.DataAccess.Repository.IRepository;
 using Abby.Models;
-using Microsoft.AspNetCore.Hosting;
+using Abby.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Abby.Web.Pages.Admin.MenuItems
 {
+    [Authorize(Roles = SD.ManagerRole)]
     [BindProperties]
     public class DeleteModel : PageModel
     {

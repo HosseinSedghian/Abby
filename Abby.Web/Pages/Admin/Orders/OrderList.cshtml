@@ -1,0 +1,46 @@
+﻿@page
+@model Abby.Web.Pages.Admin.Orders.OrderListModel
+@using Abby.Utility;
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Order List</h2>
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+    <br />
+    <br />
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Total Price</th>
+                <th>Pickup Time</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var od in Model.OrderHeaders)
+            {
+                <tr>
+                    <td>@od.Id</td>
+                    <td>@od.PickupName</td>
+                    <td>@od.ApplicationUser.Email</td>
+                    <td>@od.OrderTotalPrice</td>
+                    <td>@od.PickupTime</td>
+                    <td>
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-page="/Admin/Orders/OrderDetails" asp-route-id="@od.Id" class="btn btn-success mx-2">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

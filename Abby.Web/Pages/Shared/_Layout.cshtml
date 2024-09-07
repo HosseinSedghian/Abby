@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Abby.Utility;
+@using System.Security.Claims;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,15 +27,35 @@
                             <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-area="" asp-page="/Admin/Categories/Index">Categories</a>
-                                <a class="dropdown-item" asp-area="" asp-page="/Admin/FoodTypes/Index">Food Types</a>
-                                <a class="dropdown-item" asp-area="" asp-page="/Admin/MenuItems/Index">Menu Items</a>
-                                <div class="dropdown-divider"></div>
-                            </div>
-                        </li>
+                        @{
+                            var claimsIdentity = (ClaimsIdentity)User.Identity;
+                            if (claimsIdentity.IsAuthenticated)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Management</a>
+                                    <div class="dropdown-menu">
+                                        @if (User.IsInRole(SD.ManagerRole))
+                                        {
+                                            <a class="dropdown-item" asp-area="" asp-page="/Admin/Categories/Index">Categories</a>
+                                            <a class="dropdown-item" asp-area="" asp-page="/Admin/FoodTypes/Index">Food Types</a>
+                                            <a class="dropdown-item" asp-area="" asp-page="/Admin/MenuItems/Index">Menu Items</a>
+                                            <div class="dropdown-divider"></div>
+                                        }
+                                        @if (User.IsInRole(SD.ManagerRole) ||
+                                            User.IsInRole(SD.FrontDeskRole) ||
+                                            User.IsInRole(SD.CustomerRole))
+                                        {
+                                            <a class="dropdown-item" asp-area="" asp-page="/Admin/Orders/OrderList">Orders List</a>
+                                        }
+                                        @if (User.IsInRole(SD.ManagerRole) ||
+                                            User.IsInRole(SD.KitchenRole))
+                                        {
+                                            <a class="dropdown-item" asp-area="" asp-page="/Admin/Orders/ChefManagement">Manage Orders</a>
+                                        }
+                                    </div>
+                                </li>
+                            }
+                        }
 
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Customer/Cart/Index">

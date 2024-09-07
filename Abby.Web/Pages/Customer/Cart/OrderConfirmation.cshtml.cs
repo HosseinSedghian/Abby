@@ -21,7 +21,7 @@ namespace Abby.Web.Pages.Customer.Cart
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeaderRepository.GetFirstOrDefault(x => x.Id == id);
             orderHeader.TransactionId = Guid.NewGuid().ToString();
-            orderHeader.Status = SD.StatusSubmitted;
+            orderHeader.Status = SD.StatusSubmittedPaymentApproved;
             _unitOfWork.OrderHeaderRepository.Update(orderHeader);
             _unitOfWork.OrderHeaderRepository.Save();
             OrderId = id;
