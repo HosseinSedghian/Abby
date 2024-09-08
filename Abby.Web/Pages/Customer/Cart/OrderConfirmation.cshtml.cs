@@ -7,8 +7,8 @@ using Abby.Utility;
 
 namespace Abby.Web.Pages.Customer.Cart
 {
-    [Authorize]
-    [BindProperties]
+	[Authorize(Roles = $"{SD.CustomerRole},{SD.ManagerRole}")]
+	[BindProperties]
     public class OrderConfirmationModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;

@@ -2,12 +2,73 @@
 @model Abby.Web.Pages.Admin.Orders.OrderListModel
 @using Abby.Utility;
 
+@{
+    var status = HttpContext.Request.Query["status"];
+
+    var Pending = "text-primary";
+    var Submitted = "text-primary";
+    var InProcess = "text-primary";
+    var ReadyforPickup = "text-primary";
+    var Completed = "text-primary";
+    var Cancelled = "text-primary";
+    var All = "text-primary";
+
+    switch (status)
+    {
+        case SD.StatusPendingPayment:
+            Pending = "active text-white"; break;
+        case SD.StatusSubmittedPaymentApproved:
+            Submitted = "active text-white"; break;
+        case SD.StatusInProccess:
+            InProcess = "active text-white"; break;
+        case SD.StatusReadyForPickup:
+            ReadyforPickup = "active text-white"; break;
+        case SD.StatusCompleted:
+            Completed = "active text-white"; break;
+        case SD.StatusCancelled:
+            Cancelled = "active text-white"; break;
+        default:
+            All = "active text-white"; break;
+    }
+}
+
 <div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-6">
+    <div class="d-flex justify-content-between">
+        <div class="p-2">
             <h2 class="text-primary">Order List</h2>
         </div>
-        <div class="col-6 text-end">
+        <div class="p-2">
+            <ul class="list-group list-group-horizontal-sm">
+                
+                <a style="text-decoration:none" asp-page="OrderList" asp-route-status="@SD.StatusPendingPayment">
+                    <li class="list-group-item @Pending">Pending</li>
+                </a>
+
+                <a style="text-decoration:none" asp-page="OrderList" asp-route-status="@SD.StatusSubmittedPaymentApproved">
+                    <li class="list-group-item @Submitted">Submitted</li>
+                </a>
+
+                <a style="text-decoration:none" asp-page="OrderList" asp-route-status="@SD.StatusInProccess">
+                    <li class="list-group-item @InProcess">In Process</li>
+                </a>
+
+                <a style="text-decoration:none" asp-page="OrderList" asp-route-status="@SD.StatusReadyForPickup">
+                    <li class="list-group-item @ReadyforPickup">Ready for Pickup</li>
+                </a>
+
+                <a style="text-decoration:none" asp-page="OrderList" asp-route-status="@SD.StatusCompleted">
+                    <li class="list-group-item @Completed">Completed</li>
+                </a>
+
+                <a style="text-decoration:none" asp-page="OrderList" asp-route-status="@SD.StatusCancelled">
+                    <li class="list-group-item @Cancelled">Cancelled</li>
+                </a>
+
+                <a style="text-decoration:none" asp-page="OrderList" asp-route-status="@null">
+                    <li class="list-group-item @All">All</li>
+                </a>
+
+            </ul>
         </div>
     </div>
     <br />

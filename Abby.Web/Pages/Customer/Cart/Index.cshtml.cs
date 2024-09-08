@@ -1,5 +1,6 @@
 using Abby.DataAccess.Repository.IRepository;
 using Abby.Models;
+using Abby.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,8 +8,8 @@ using System.Security.Claims;
 
 namespace Abby.Web.Pages.Customer.Cart
 {
-    [Authorize]
-    [BindProperties]
+	[Authorize(Roles = $"{SD.CustomerRole},{SD.ManagerRole}")]
+	[BindProperties]
     public class IndexModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;
