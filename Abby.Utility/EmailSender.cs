@@ -6,6 +6,7 @@ namespace Abby.Utility
     {
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
+            // Here we can add how to send an email from the app.
             return Task.CompletedTask;
         }
     }

@@ -26,8 +26,9 @@ namespace Abby.Web.Pages.Customer.Cart
             if (claim != null)
             {
                 ShoppingCarts = _unitOfWork.ShoppingCartRepository.GetAll(filter: x => x.ApplicationUserId == claim.Value,
-                includeProperties: $"{nameof(MenuItem)},{nameof(MenuItem)}.{nameof(MenuItem.Category)},{nameof(MenuItem)}.{nameof(MenuItem.FoodType)}",
-                orderby: x => x.OrderBy(x => x.Count)).ToList();
+                    includeProperties: $"{nameof(MenuItem)},{nameof(MenuItem)}.{nameof(MenuItem.Category)},{nameof(MenuItem)}.{nameof(MenuItem.FoodType)}",
+                    orderby: x=> x.OrderBy(x => x.Id))
+                    .ToList();
 
                 CartTotal = ShoppingCarts.Sum(x => x.Count * x.MenuItem.Price);
             }

@@ -7,13 +7,13 @@
         public const string KitchenRole = "Kitchen";
         public const string CustomerRole = "Customer";
 
-        public const string StatusPendingPayment = "Pending_Payment";
-        public const string StatusSubmittedPaymentApproved = "Submitted_PaymentApproved";
-		public const string StatusInProccess = "Being_Prepared";
-		public const string StatusReadyForPickup = "Ready_For_Pickup";
+        public const string StatusPendingPayment = "Pending";
+        public const string StatusSubmittedPaymentApproved = "Submitted";
+		public const string StatusInProccess = "InProccess";
+		public const string StatusReadyForPickup = "Ready";
 		public const string StatusCompleted = "Completed";
 
-		public const string StatusRejectedPayment = "Rejected_Payment";
+		public const string StatusRejectedPayment = "Rejected";
         public const string StatusCancelled = "Cancelled";
         public const string StatusRefunded = "Refunded";
 

@@ -81,6 +81,7 @@
                 <th>Email</th>
                 <th>Total Price</th>
                 <th>Pickup Time</th>
+                <th>Status</th>
                 <th></th>
             </tr>
         </thead>
@@ -93,6 +94,7 @@
                     <td>@od.ApplicationUser.Email</td>
                     <td>@od.OrderTotalPrice</td>
                     <td>@od.PickupTime</td>
+                    <td>@od.Status</td>
                     <td>
                         <div class="w-75 btn-group" role="group">
                             <a asp-page="/Admin/Orders/OrderDetails" asp-route-id="@od.Id" class="btn btn-success mx-2">
