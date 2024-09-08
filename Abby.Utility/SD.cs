@@ -16,5 +16,7 @@
 		public const string StatusRejectedPayment = "Rejected_Payment";
         public const string StatusCancelled = "Cancelled";
         public const string StatusRefunded = "Refunded";
+
+        public const string CartCountKey = "CartCount";
     }
 }

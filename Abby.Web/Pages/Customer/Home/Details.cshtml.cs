@@ -51,6 +51,9 @@ namespace Abby.Web.Pages.Customer.Home
                     _unitOfWork.ShoppingCartRepository.Add(ShoppingCart);
                 }
                 _unitOfWork.ShoppingCartRepository.Save();
+                int cartCount = _unitOfWork.ShoppingCartRepository
+                    .GetAll(x => x.ApplicationUserId == claim.Value).Count();
+                HttpContext.Session.SetInt32(SD.CartCountKey, cartCount);
                 TempData["success"] = "Shopping cart added successfully.";
                 return RedirectToPage(nameof(Index));
             }

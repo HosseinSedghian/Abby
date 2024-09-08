@@ -67,6 +67,9 @@ namespace Abby.Web.Pages.Customer.Cart
                     _unitOfWork.ShoppingCartRepository.Update(cartFromDb);
                 }
                 _unitOfWork.ShoppingCartRepository.Save();
+                int cartCount = _unitOfWork.ShoppingCartRepository
+                    .GetAll(x => x.ApplicationUserId == cartFromDb.ApplicationUserId).Count();
+                HttpContext.Session.SetInt32(SD.CartCountKey, cartCount);
                 TempData["succes"] = "Shopping cart decreased successfully.";
                 return RedirectToPage(nameof(Index));
             }
@@ -82,6 +85,9 @@ namespace Abby.Web.Pages.Customer.Cart
             {
                 _unitOfWork.ShoppingCartRepository.Remove(cartFromDb);
                 _unitOfWork.ShoppingCartRepository.Save();
+                int cartCount = _unitOfWork.ShoppingCartRepository
+                    .GetAll(x => x.ApplicationUserId == cartFromDb.ApplicationUserId).Count();
+                HttpContext.Session.SetInt32(SD.CartCountKey, cartCount);
                 TempData["succes"] = "Shopping cart deleted successfully.";
                 return RedirectToPage(nameof(Index));
             }

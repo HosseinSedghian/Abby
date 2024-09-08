@@ -68,6 +68,11 @@ namespace Abby.Web.Pages.Customer.Cart
                 }
                 _unitOfWork.ShoppingCartRepository.RemoveRange(ShoppingCarts);
                 _unitOfWork.ShoppingCartRepository.Save();
+
+                int cartCount = _unitOfWork.ShoppingCartRepository
+                    .GetAll(x => x.ApplicationUserId == claim.Value).Count();
+                HttpContext.Session.SetInt32(SD.CartCountKey, cartCount);
+
                 return RedirectToPage("Payment", new { orderId = OrderHeader.Id});
             }
             return Page();
