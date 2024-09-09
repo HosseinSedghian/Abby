@@ -41,6 +41,7 @@
                                             <a class="dropdown-item" asp-area="" asp-page="/Admin/FoodTypes/Index">Food Types</a>
                                             <a class="dropdown-item" asp-area="" asp-page="/Admin/MenuItems/Index">Menu Items</a>
                                             <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register Employees</a>
                                         }
                                         @if (User.IsInRole(SD.ManagerRole) ||
                                             User.IsInRole(SD.FrontDeskRole) ||
@@ -57,13 +58,11 @@
                                 </li>
                             }
                         }
-
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Customer/Cart/Index">
                                 @await Component.InvokeAsync("ShoppingCart")
                             </a>
                         </li>
-
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

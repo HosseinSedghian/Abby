@@ -5,6 +5,7 @@ using Abby.DataAccess.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Abby.Utility;
+using Abby.DataAccess.DbInitializer;
 namespace Abby.Web
 {
     public class Program
@@ -23,6 +24,7 @@ namespace Abby.Web
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IDbInitializer, DbInitializer>();
             builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
             builder.Services.ConfigureApplicationCookie(options =>
@@ -54,6 +56,13 @@ namespace Abby.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            // Seed Database
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+                dbInitializer.Initialize();
+            }
 
             app.UseAuthentication();
             app.UseAuthorization();
