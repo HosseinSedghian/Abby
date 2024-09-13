@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abby.Models", "Abby.Models\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abby.Utility", "Abby.Utility\Abby.Utility.csproj", "{7A92B220-6172-42F1-ADA4-72ACD1E73114}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abby.Test", "Abby.Test\Abby.Test.csproj", "{7D493FED-E906-4F0E-AF8D-2A6998FE0D4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7A92B220-6172-42F1-ADA4-72ACD1E73114}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A92B220-6172-42F1-ADA4-72ACD1E73114}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A92B220-6172-42F1-ADA4-72ACD1E73114}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D493FED-E906-4F0E-AF8D-2A6998FE0D4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D493FED-E906-4F0E-AF8D-2A6998FE0D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D493FED-E906-4F0E-AF8D-2A6998FE0D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D493FED-E906-4F0E-AF8D-2A6998FE0D4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

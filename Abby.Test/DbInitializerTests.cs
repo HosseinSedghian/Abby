@@ -5,8 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
+using Abby.Models;
 
-namespace Abby.Tests
+namespace Abby.Test
 {
     public class DbInitializerTests
     {

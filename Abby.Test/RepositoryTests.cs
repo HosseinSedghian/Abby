@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
-namespace Abby.Tests
+namespace Abby.Test
 {
     public class RepositoryTests
     {

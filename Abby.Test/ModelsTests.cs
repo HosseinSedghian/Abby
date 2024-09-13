@@ -1,7 +1,7 @@
 using Abby.Models;
 using Xunit;
 
-namespace Abby.Tests
+namespace Abby.Test
 {
     public class ModelsTests
     {
