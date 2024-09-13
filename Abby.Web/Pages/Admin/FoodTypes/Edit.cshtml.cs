@@ -23,7 +23,8 @@ namespace Abby.Web.Pages.Admin.FoodTypes
         }
         public IActionResult OnPost()
         {
-            if(ModelState.IsValid)
+            ModelState.Remove($"{nameof(FoodType)}.{nameof(FoodType.MenuItems)}");
+            if (ModelState.IsValid)
             {
                 _unitOfWork.FoodTypeRepository.Update(FoodType);
                 _unitOfWork.FoodTypeRepository.Save();

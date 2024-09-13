@@ -1,6 +1,5 @@
 using Abby.DataAccess.Repository.IRepository;
 using Abby.Models;
-using Abby.Models.ViewModels;
 using Abby.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,23 +16,13 @@ namespace Abby.Web.Pages.Admin.Orders
         {
             _unitOfWork = unitOfWork;
         }
-        public List<OrderDetailsVM> OrderDetailsVMs { get; set; }
+        public List<OrderHeader> OrderHeaders { get; set; }
         public void OnGet()
         {
-			OrderDetailsVMs = new List<OrderDetailsVM>();
-            List<OrderHeader> orderHeaders = _unitOfWork.OrderHeaderRepository
-                .GetAll(x => x.Status == SD.StatusSubmittedPaymentApproved || x.Status == SD.StatusInProccess).ToList();
-            foreach (OrderHeader od in orderHeaders)
-            {
-                OrderDetailsVM odVM = new OrderDetailsVM()
-                {
-                    OrderHeader = od,
-                    OrderDetails = _unitOfWork.OrderDetailRepository
-                        .GetAll(x => x.OrderId == od.Id).ToList()
-                };
-                OrderDetailsVMs.Add(odVM);
-			}
-		}
+            OrderHeaders = _unitOfWork.OrderHeaderRepository
+                .GetAll(filter: x => x.Status == SD.StatusSubmittedPaymentApproved || x.Status == SD.StatusInProccess,
+                includeProperties: $"{nameof(OrderHeader.OrderDetails)}").ToList();
+        }
         public IActionResult OnPostOrderInProcess(int orderId)
         {
             OrderHeader objFromDb = _unitOfWork.OrderHeaderRepository.GetFirstOrDefault(x => x.Id == orderId);

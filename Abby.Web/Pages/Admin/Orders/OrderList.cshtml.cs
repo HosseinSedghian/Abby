@@ -37,17 +37,23 @@ namespace Abby.Web.Pages.Admin.Orders
             switch(status)
             {
                 case SD.StatusPendingPayment:
-                    OrderHeaders = OrderHeaders.Where(x => x.Status == SD.StatusPendingPayment).ToList(); break;
+                    OrderHeaders = OrderHeaders.Where(x => x.Status == SD.StatusPendingPayment).ToList();
+                    break;
                 case SD.StatusSubmittedPaymentApproved:
-                    OrderHeaders = OrderHeaders.Where(x => x.Status == SD.StatusSubmittedPaymentApproved).ToList(); break;
+                    OrderHeaders = OrderHeaders.Where(x => x.Status == SD.StatusSubmittedPaymentApproved).ToList();
+                    break;
                 case SD.StatusInProccess:
-                    OrderHeaders = OrderHeaders.Where(x => x.Status == SD.StatusInProccess).ToList(); break;
+                    OrderHeaders = OrderHeaders.Where(x => x.Status == SD.StatusInProccess).ToList();
+                    break;
                 case SD.StatusReadyForPickup:
-                    OrderHeaders = OrderHeaders.Where(x => x.Status == SD.StatusReadyForPickup).ToList(); break;
+                    OrderHeaders = OrderHeaders.Where(x => x.Status == SD.StatusReadyForPickup).ToList();
+                    break;
                 case SD.StatusCompleted:
-                    OrderHeaders = OrderHeaders.Where(x => x.Status == SD.StatusCompleted).ToList(); break;
+                    OrderHeaders = OrderHeaders.Where(x => x.Status == SD.StatusCompleted).ToList();
+                    break;
                 case SD.StatusCancelled:
-                    OrderHeaders = OrderHeaders.Where(x => x.Status == SD.StatusCancelled).ToList(); break;
+                    OrderHeaders = OrderHeaders.Where(x => x.Status == SD.StatusCancelled).ToList();
+                    break;
             }
         }
     }

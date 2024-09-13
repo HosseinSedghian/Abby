@@ -1,6 +1,5 @@
 using Abby.DataAccess.Repository.IRepository;
 using Abby.Models;
-using Abby.Models.ViewModels;
 using Abby.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,15 +16,12 @@ namespace Abby.Web.Pages.Admin.Orders
         {
             _unitOfWork = unitOfWork;
         }
-        public OrderDetailsVM OrderDetailsVM { get; set; }
+        public OrderHeader OrderHeader { get; set; }
         public void OnGet(int id)
         {
-            OrderDetailsVM = new OrderDetailsVM()
-            {
-                OrderHeader = _unitOfWork.OrderHeaderRepository.GetFirstOrDefault(filter: x => x.Id == id,
-                        includeProperties: $"{nameof(ApplicationUser)}"),
-                OrderDetails = _unitOfWork.OrderDetailRepository.GetAll(filter: x => x.OrderId == id).ToList()
-            };
+            OrderHeader = _unitOfWork.OrderHeaderRepository
+                .GetFirstOrDefault(filter: x => x.Id == id,
+                includeProperties: $"{nameof(ApplicationUser)},{nameof(OrderHeader.OrderDetails)}");
         }
         public IActionResult OnPostPayNow(int id)
         {
@@ -33,7 +29,8 @@ namespace Abby.Web.Pages.Admin.Orders
         }
         public IActionResult OnPostOrderCompleted(int orderId)
         {
-            OrderHeader objFromDb = _unitOfWork.OrderHeaderRepository.GetFirstOrDefault(x => x.Id == orderId);
+            OrderHeader objFromDb = _unitOfWork.OrderHeaderRepository
+                .GetFirstOrDefault(x => x.Id == orderId);
             objFromDb.Status = SD.StatusCompleted;
             _unitOfWork.OrderHeaderRepository.Update(objFromDb);
             _unitOfWork.OrderHeaderRepository.Save();
@@ -41,7 +38,8 @@ namespace Abby.Web.Pages.Admin.Orders
         }
         public IActionResult OnPostOrderRefund(int orderId)
         {
-            OrderHeader objFromDb = _unitOfWork.OrderHeaderRepository.GetFirstOrDefault(x => x.Id == orderId);
+            OrderHeader objFromDb = _unitOfWork.OrderHeaderRepository
+                .GetFirstOrDefault(x => x.Id == orderId);
             
             // Here we should pay back money to the customer.
 
@@ -52,7 +50,8 @@ namespace Abby.Web.Pages.Admin.Orders
         }
         public IActionResult OnPostOrderCancel(int orderId)
         {
-            OrderHeader objFromDb = _unitOfWork.OrderHeaderRepository.GetFirstOrDefault(x => x.Id == orderId);
+            OrderHeader objFromDb = _unitOfWork.OrderHeaderRepository
+                .GetFirstOrDefault(x => x.Id == orderId);
 
             // Here we should pay back money to the customer.
 

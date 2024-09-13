@@ -17,11 +17,11 @@ namespace Abby.Web.Pages.Customer.Cart
             _unitOfWork = unitOfWork;
         }
         public OrderHeader OrderHeader { get; set; }
-        public List<OrderDetail> OrderDetails { get; set; }
         public void OnGet(int orderId)
         {
-            OrderHeader = _unitOfWork.OrderHeaderRepository.GetFirstOrDefault(x => x.Id == orderId);
-            OrderDetails = _unitOfWork.OrderDetailRepository.GetAll(x => x.OrderId == orderId).ToList();
+            OrderHeader = _unitOfWork.OrderHeaderRepository
+                .GetFirstOrDefault(filter: x => x.Id == orderId,
+                includeProperties: $"{nameof(OrderHeader)}.{OrderHeader.OrderDetails}");
         }
 
         public IActionResult OnPostPay()

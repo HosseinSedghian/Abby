@@ -21,7 +21,7 @@
 						Name
 					</div>
 					<div class="col-md-9 col-12">
-						<input asp-for="@Model.OrderDetailsVM.OrderHeader.PickupName" disabled class="form-control" />
+						<input asp-for="@Model.OrderHeader.PickupName" disabled class="form-control" />
 					</div>
 				</div>
 
@@ -30,7 +30,7 @@
 						Email
 					</div>
 					<div class="col-md-9 col-12">
-						<input asp-for="@Model.OrderDetailsVM.OrderHeader.ApplicationUser.Email" disabled class="form-control" />
+						<input asp-for="@Model.OrderHeader.ApplicationUser.Email" disabled class="form-control" />
 					</div>
 				</div>
 
@@ -39,7 +39,7 @@
 						Phone Number
 					</div>
 					<div class="col-md-9 col-12">
-						<input asp-for="@Model.OrderDetailsVM.OrderHeader.PhoneNumber" disabled class="form-control" />
+						<input asp-for="@Model.OrderHeader.PhoneNumber" disabled class="form-control" />
 					</div>
 				</div>
 
@@ -48,7 +48,7 @@
 						Total Price
 					</div>
 					<div class="col-md-9 col-12">
-						<input disabled asp-for="@Model.OrderDetailsVM.OrderHeader.OrderTotalPrice" class="form-control" />
+						<input disabled asp-for="@Model.OrderHeader.OrderTotalPrice" class="form-control" />
 					</div>
 				</div>
 
@@ -57,7 +57,7 @@
 						Pickup Date Time
 					</div>
 					<div class="col-md-9 col-12">
-						<input value="@Model.OrderDetailsVM.OrderHeader.PickupTime.ToShortDateString() @Model.OrderDetailsVM.OrderHeader.PickupTime.ToShortTimeString()" disabled class="form-control" />
+						<input value="@Model.OrderHeader.PickupTime.ToShortDateString() @Model.OrderHeader.PickupTime.ToShortTimeString()" disabled class="form-control" />
 					</div>
 				</div>
 
@@ -66,20 +66,20 @@
 						Comments
 					</div>
 					<div class="col-md-9 col-12">
-						<textarea asp-for="@Model.OrderDetailsVM.OrderHeader.Comments" disabled class="form-control" rows="3"></textarea>
+						<textarea asp-for="@Model.OrderHeader.Comments" disabled class="form-control" rows="3"></textarea>
 					</div>
 				</div>
 
 			</div>
 
 			<div class="col-lg-4 col-12">
-				<button type="submit" disabled class="btn btn-outline-info form-control">@Model.OrderDetailsVM.OrderHeader.Status</button>
+				<button type="submit" disabled class="btn btn-outline-info form-control">@Model.OrderHeader.Status</button>
 				<h4 class="d-flex justify-content-between align-content-center mb-3 pt-3">
 					<span class="text-muted">Order ID: </span>
-					<span class="badge badge-secondary badge-pill">@Model.OrderDetailsVM.OrderHeader.Id</span>
+					<span class="badge badge-secondary badge-pill">@Model.OrderHeader.Id</span>
 				</h4>
 				<ul class="list-group mb-3">
-					@foreach (var detail in Model.OrderDetailsVM.OrderDetails)
+					@foreach (var detail in Model.OrderHeader.OrderDetails)
 					{
 						<li class="list-group-item d-flex justify-content-between">
 							<div>
@@ -91,16 +91,16 @@
 					}
 					<li class="list-group-item d-flex justify-content-between bg-light">
 						<span class="text-info"> Total (USD)</span>
-						<strong class="text-info">$@Model.OrderDetailsVM.OrderHeader.OrderTotalPrice</strong>
+						<strong class="text-info">$@Model.OrderHeader.OrderTotalPrice</strong>
 					</li>
 				</ul>
 				<div class="row pt-3">
-					@if (Model.OrderDetailsVM.OrderHeader.Status == SD.StatusReadyForPickup
+					@if (Model.OrderHeader.Status == SD.StatusReadyForPickup
 										&& (User.IsInRole(SD.ManagerRole) || User.IsInRole(SD.FrontDeskRole)))
 					{
 						<div class="col-12 pb-2">
 							<button type="submit" class="btn btn-primary form-control"
-									asp-page-handler="OrderCompleted" asp-route-orderId="@Model.OrderDetailsVM.OrderHeader.Id">
+									asp-page-handler="OrderCompleted" asp-route-orderId="@Model.OrderHeader.Id">
 								Complete Order
 							</button>
 						</div>
@@ -108,31 +108,31 @@
 					@if (
 							(User.IsInRole(SD.ManagerRole) || User.IsInRole(SD.FrontDeskRole))
 							&&
-							(Model.OrderDetailsVM.OrderHeader.Status == SD.StatusReadyForPickup ||
-							Model.OrderDetailsVM.OrderHeader.Status == SD.StatusSubmittedPaymentApproved ||
-							Model.OrderDetailsVM.OrderHeader.Status == SD.StatusInProccess)
+							(Model.OrderHeader.Status == SD.StatusReadyForPickup ||
+							Model.OrderHeader.Status == SD.StatusSubmittedPaymentApproved ||
+							Model.OrderHeader.Status == SD.StatusInProccess)
 						)
 					{
 						<div class="col-6">
 							<button type="submit" class="btn btn-warning form-control"
-									asp-page-handler="OrderCancel" asp-route-orderId="@Model.OrderDetailsVM.OrderHeader.Id">
+									asp-page-handler="OrderCancel" asp-route-orderId="@Model.OrderHeader.Id">
 								<i class="bi bi-x-square"></i> Cancel Order
 							</button>
 						</div>
 						<div class="col-6">
 							<button type="submit" class="btn btn-danger form-control"
-									asp-page-handler="OrderRefund" asp-route-orderId="@Model.OrderDetailsVM.OrderHeader.Id">
+									asp-page-handler="OrderRefund" asp-route-orderId="@Model.OrderHeader.Id">
 								<i class="bi bi-currency-dollar"></i> Refund Order
 							</button>
 						</div>
 					}
-					@if (Model.OrderDetailsVM.OrderHeader.Status == SD.StatusPendingPayment
-										&& (User.IsInRole(SD.CustomerRole))
+					@if (Model.OrderHeader.Status == SD.StatusPendingPayment
+										&& (User.IsInRole(SD.CustomerRole) || User.IsInRole(SD.ManagerRole))
 						)
 					{
 						<div class="col-12 pb-2">
 							<button type="submit" class="btn btn-success form-control"
-									asp-page-handler="PayNow" asp-route-id="@Model.OrderDetailsVM.OrderHeader.Id">
+									asp-page-handler="PayNow" asp-route-id="@Model.OrderHeader.Id">
 								Pay Now
 							</button>
 						</div>

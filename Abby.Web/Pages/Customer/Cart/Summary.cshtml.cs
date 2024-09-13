@@ -37,6 +37,7 @@ namespace Abby.Web.Pages.Customer.Cart
             ModelState.Remove($"{nameof(OrderHeader)}.{nameof(ApplicationUser)}");
             ModelState.Remove($"{nameof(OrderHeader)}.{nameof(OrderHeader.Status)}");
             ModelState.Remove($"{nameof(OrderHeader)}.{nameof(OrderHeader.ApplicationUserId)}");
+            ModelState.Remove($"{nameof(OrderHeader)}.{nameof(OrderHeader.OrderDetails)}");
 
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);

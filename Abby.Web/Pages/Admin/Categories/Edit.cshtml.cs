@@ -23,6 +23,7 @@ namespace Abby.Web.Pages.Admin.Categories
         }
         public IActionResult OnPost()
         {
+            ModelState.Remove($"{nameof(Category)}.{nameof(Category.MenuItems)}");
             if (ModelState.IsValid)
             {
                 _unitOfWork.CategoryRepository.Update(Category);

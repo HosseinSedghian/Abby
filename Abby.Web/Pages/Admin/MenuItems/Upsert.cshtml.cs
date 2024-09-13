@@ -52,6 +52,8 @@ namespace Abby.Web.Pages.Admin.MenuItems
             ModelState.Remove($"{nameof(MenuItem)}.{nameof(Category)}");
             ModelState.Remove($"{nameof(MenuItem)}.{nameof(FoodType)}");
             ModelState.Remove($"{nameof(MenuItem)}.{nameof(MenuItem.ImageUrl)}");
+            ModelState.Remove($"{nameof(MenuItem)}.{nameof(MenuItem.OrderDetails)}");
+            ModelState.Remove($"{nameof(MenuItem)}.{nameof(MenuItem.ShoppingCarts)}");
 
             var files = HttpContext.Request.Form.Files;
             if(MenuItem.Id == 0 && files.Count == 0)
@@ -79,9 +81,7 @@ namespace Abby.Web.Pages.Admin.MenuItems
                     }
                 }
                 MenuItem.ImageUrl = $@"\images\menuitems\{filename_new}{extension}";
-            }
-            
-            
+            }         
             if (ModelState.IsValid)
             {
                 if (MenuItem.Id == 0)
