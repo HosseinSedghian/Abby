@@ -17,5 +17,15 @@ namespace Abby.Models
         /// Gets or sets the last name of the user.
         /// </summary>
         public string LastName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last name of the user.
+        /// </summary>
+        public List<OrderHeader> OrderHeaders { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last name of the user.
+        /// </summary>
+        public List<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

@@ -31,5 +31,6 @@ namespace Abby.Models
 
         [ForeignKey(nameof(ApplicationUserId))]
         public ApplicationUser ApplicationUser { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; }
     }
 }
