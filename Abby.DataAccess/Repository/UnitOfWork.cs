@@ -3,6 +3,10 @@ using Abby.DataAccess.Repository.IRepository;
 
 namespace Abby.DataAccess.Repository
 {
+    /// <summary>
+    /// The UnitOfWork class implements the UnitOfWork pattern.
+    /// It provides properties to access various repositories and a method to save changes to the database.
+    /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
         public ICategoryRepository CategoryRepository { get; private set; }
@@ -13,6 +17,11 @@ namespace Abby.DataAccess.Repository
         public IOrderDetailRepository OrderDetailRepository { get; private set; }
         public IApplicationUserRepository ApplicationUserRepository { get; private set; }
         private readonly AppDbContext _context;
+
+        /// <summary>
+        /// Initializes a new instance of the UnitOfWork class.
+        /// </summary>
+        /// <param name="context">The database context to be used by the UnitOfWork.</param>
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -25,6 +34,9 @@ namespace Abby.DataAccess.Repository
             ApplicationUserRepository = new ApplicationUserRepository(_context);
         }
 
+        /// <summary>
+        /// Disposes the database context.
+        /// </summary>
         public void Dispose()
         {
             _context.Dispose();
