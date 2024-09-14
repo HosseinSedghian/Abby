@@ -2,7 +2,7 @@ using Abby.DataAccess.Repository.IRepository;
 using Abby.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
+using Microsoft.EntityFrameworkCore;
 namespace Abby.Web.Pages.Customer.Home
 {
     [BindProperties]
@@ -13,15 +13,13 @@ namespace Abby.Web.Pages.Customer.Home
         {
             _unitOfWork = unitOfWork;
         }
-        public List<MenuItem> MenuItems { get; set; }
         public List<Category> Categories { get; set; }
         public void OnGet()
         {
-            MenuItems = _unitOfWork.MenuItemRepository
-                .GetAll(includeProperties: $"{nameof(MenuItem.Category)},{nameof(MenuItem.FoodType)}")
-                .ToList();
             Categories = _unitOfWork.CategoryRepository
-                .GetAll(orderby:c => c.OrderBy(u => u.DisplayOrder)).ToList();
+                .GetAll(orderby:c => c.OrderBy(u => u.DisplayOrder),
+                        includeProperties:$"{nameof(Category.MenuItems)}," +
+                        $"{nameof(Category.MenuItems)}.{nameof(FoodType)}").ToList();
         }
     }
 }

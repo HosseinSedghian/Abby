@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Xunit;
 using Abby.Models;
 
 namespace Abby.Test
@@ -15,7 +14,7 @@ namespace Abby.Test
         private readonly Mock<UserManager<IdentityUser>> _mockUserManager;
         private readonly Mock<RoleManager<IdentityRole>> _mockRoleManager;
         private readonly Mock<ILogger<DbInitializer>> _mockLogger;
-        private readonly DbInitializer _dbInitializer;
+        private readonly IDbInitializer _dbInitializer;
 
         public DbInitializerTests()
         {

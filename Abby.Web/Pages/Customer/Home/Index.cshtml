@@ -7,7 +7,7 @@
         <h2 class="text-success pl-1"><b>@category.Name</b></h2>
         <div class="col-12">
             <div class="row my-3">
-                @foreach (var menuItem in Model.MenuItems.Where(u => u.CategoryId == category.Id))
+                @foreach (var menuItem in category.MenuItems)
                 {
                     <div class="col-lg-4 col-md-6 pb-4 filter">
                         <div class="card bg-white rounded shadow-sm" style="border:1px solid #222">
@@ -27,7 +27,7 @@
                                     <p> @Html.Raw(menuItem.Description.Replace("\n", "<br />"))</p>
                                 </div>
                                 <div class="col-12 p-1">
-                                    <a asp-page="Details" asp-route-id="@menuItem.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">Order</a>
+                                    <a asp-page="AddToCart" asp-route-id="@menuItem.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">Order</a>
                                 </div>
                             </div>
                         </div>

@@ -126,9 +126,8 @@
 							</button>
 						</div>
 					}
-					@if (Model.OrderHeader.Status == SD.StatusPendingPayment
-										&& (User.IsInRole(SD.CustomerRole) || User.IsInRole(SD.ManagerRole))
-						)
+					@if ((User.IsInRole(SD.CustomerRole) || User.IsInRole(SD.ManagerRole))
+							&& Model.OrderHeader.Status == SD.StatusPendingPayment)
 					{
 						<div class="col-12 pb-2">
 							<button type="submit" class="btn btn-success form-control"

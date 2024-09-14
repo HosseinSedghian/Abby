@@ -10,10 +10,10 @@ namespace Abby.Web.Pages.Customer.Home
 {
     [BindProperties]
     [Authorize(Roles = $"{SD.CustomerRole},{SD.ManagerRole}")]
-    public class DetailsModel : PageModel
+    public class AddToCartModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;
-        public DetailsModel(IUnitOfWork unitOfWork)
+        public AddToCartModel(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -44,7 +44,6 @@ namespace Abby.Web.Pages.Customer.Home
                 {
                     _unitOfWork.ShoppingCartRepository.IncrementCount(ref cartFromDb, ShoppingCart.Count);
                     _unitOfWork.ShoppingCartRepository.Update(cartFromDb);
-
                 }
                 else
                 {

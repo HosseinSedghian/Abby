@@ -21,7 +21,7 @@ namespace Abby.Web.Pages.Customer.Cart
         {
             OrderHeader = _unitOfWork.OrderHeaderRepository
                 .GetFirstOrDefault(filter: x => x.Id == orderId,
-                includeProperties: $"{nameof(OrderHeader)}.{OrderHeader.OrderDetails}");
+                includeProperties:$"{nameof(OrderHeader.OrderDetails)}");
         }
 
         public IActionResult OnPostPay()

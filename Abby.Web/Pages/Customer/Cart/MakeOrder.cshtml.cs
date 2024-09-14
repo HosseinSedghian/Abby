@@ -9,10 +9,10 @@ namespace Abby.Web.Pages.Customer.Cart
 {
 	[Authorize(Roles = $"{SD.CustomerRole},{SD.ManagerRole}")]
 	[BindProperties]
-    public class SummaryModel : PageModel
+    public class MakeOrderModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;
-        public SummaryModel(IUnitOfWork unitOfWork)
+        public MakeOrderModel(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
