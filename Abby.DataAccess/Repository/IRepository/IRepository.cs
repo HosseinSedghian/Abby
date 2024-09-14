@@ -15,6 +15,11 @@ namespace Abby.DataAccess.Repository.IRepository
         /// </summary>
         /// <param name="entity">The entity to be added.</param>
         void Add(T entity);
+        /// <summary>
+        /// Adds a range of entities to the database.
+        /// </summary>
+        /// <param name="entity">The entity to be added.</param>
+        void AddRange(IEnumerable<T> entityList);
 
         /// <summary>
         /// Removes the specified entity from the database.

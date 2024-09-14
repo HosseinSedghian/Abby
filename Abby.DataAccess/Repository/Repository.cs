@@ -14,7 +14,7 @@ namespace Abby.DataAccess.Repository
         where T : class
     {
         private readonly AppDbContext _context;
-        internal DbSet<T> dbSet;
+        private DbSet<T> dbSet;
 
         /// <summary>
         /// Initializes a new instance of the Repository class.
@@ -33,6 +33,14 @@ namespace Abby.DataAccess.Repository
         public void Add(T entity)
         {
             dbSet.Add(entity);
+        }
+        /// <summary>
+        /// Adds a range of entities to the database.
+        /// </summary>
+        /// <param name="entity">The entity to be added.</param>
+        public void AddRange(IEnumerable<T> entityList)
+        {
+            dbSet.AddRange(entityList);
         }
 
         /// <summary>
