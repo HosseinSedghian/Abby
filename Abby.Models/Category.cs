@@ -24,7 +24,6 @@ namespace Abby.Models
         /// </summary>
         [Display(Name = "Display Order")]
         public int DisplayOrder { get; set; }
-
         public List<MenuItem> MenuItems { get; set; }
     }
 }

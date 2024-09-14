@@ -60,9 +60,7 @@ namespace Abby.Models
         /// </summary>
         [ForeignKey(nameof(FoodTypeId))]
         public FoodType FoodType { get; set; }
-
         public List<ShoppingCart> ShoppingCarts { get; set; }
-
         public List<OrderDetail> OrderDetails { get; set; }
     }
 }

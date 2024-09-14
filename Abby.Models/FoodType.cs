@@ -18,7 +18,6 @@ namespace Abby.Models
         /// </summary>
         [Required]
         public string Name { get; set; }
-
         public List<MenuItem> MenuItems { get; set; }
     }
 }
