@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Abby.Utility;
 using Abby.DataAccess.DbInitializer;
+using Serilog;
 namespace Abby.Web
 {
     public class Program
@@ -42,7 +43,16 @@ namespace Abby.Web
                 options.Cookie.IsEssential = true;
             });
 
-            var app = builder.Build();
+            // Configure Serilog
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .WriteTo.File("Logs/log.txt", rollingInterval:RollingInterval.Day)
+                .CreateLogger();
+			builder.Host.UseSerilog();
+
+			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
