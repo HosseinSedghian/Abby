@@ -37,24 +37,27 @@ namespace Abby.Web.Pages.Customer.Home
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 ShoppingCart.ApplicationUserId = claim.Value;
-
+                int shoppingCartIdSendToIndex = 0;
                 var cartFromDb = _unitOfWork.ShoppingCartRepository.GetFirstOrDefault(filter: x =>
                         x.ApplicationUserId == claim.Value && x.MenuItemId == ShoppingCart.MenuItemId);
                 if (cartFromDb != null)
                 {
                     _unitOfWork.ShoppingCartRepository.IncrementCount(ref cartFromDb, ShoppingCart.Count);
                     _unitOfWork.ShoppingCartRepository.Update(cartFromDb);
+                    _unitOfWork.ShoppingCartRepository.Save();
+                    shoppingCartIdSendToIndex = cartFromDb.Id;
                 }
                 else
                 {
                     _unitOfWork.ShoppingCartRepository.Add(ShoppingCart);
+                    _unitOfWork.ShoppingCartRepository.Save();
+                    shoppingCartIdSendToIndex = ShoppingCart.Id;
                 }
-                _unitOfWork.ShoppingCartRepository.Save();
                 int cartCount = _unitOfWork.ShoppingCartRepository
                     .GetAll(x => x.ApplicationUserId == claim.Value).Count();
                 HttpContext.Session.SetInt32(SD.CartCountKey, cartCount);
                 TempData["success"] = "Shopping cart added successfully.";
-                return RedirectToPage(nameof(Index));
+                return RedirectToPage(nameof(Index), new { shoppingCartId = shoppingCartIdSendToIndex });
             }
             return Page();
         }

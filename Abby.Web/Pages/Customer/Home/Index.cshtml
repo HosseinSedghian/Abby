@@ -27,7 +27,9 @@
                                     <p> @Html.Raw(menuItem.Description.Replace("\n", "<br />"))</p>
                                 </div>
                                 <div class="col-12 p-1">
-                                    <a asp-page="AddToCart" asp-route-id="@menuItem.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">Order</a>
+                                    <a asp-page="AddToCart" asp-route-id="@menuItem.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">
+                                        Add To Shopping Cart
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -37,3 +39,20 @@
         </div>
     }
 </div>
+
+@section Scripts {
+    <script>
+        @if (Model.ShoppingCart != null)
+        {
+            <text>
+                window.onload = function () {
+                    Swal.fire({
+                        title: "Added to shopping cart.",
+                        text: "@Model.ShoppingCart.MenuItem.Name: @Model.ShoppingCart.MenuItem.Price x @Model.ShoppingCart.Count",
+                        icon: "success"
+                    });
+                };
+            </text>
+        }
+    </script>
+}
