@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Abby.Models
 {
     /// <summary>
@@ -11,13 +9,11 @@ namespace Abby.Models
         /// <summary>
         /// Gets or sets the unique identifier for the menu item.
         /// </summary>
-        [Key]
         public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the menu item.
         /// </summary>
-        [Required]
         public string Name { get; set; }
 
         /// <summary>
@@ -28,7 +24,6 @@ namespace Abby.Models
         /// <summary>
         /// Gets or sets the image URL of the menu item.
         /// </summary>
-        [Required]
         public string ImageUrl { get; set; }
 
         /// <summary>
@@ -46,7 +41,6 @@ namespace Abby.Models
         /// <summary>
         /// Gets or sets the category of the menu item.
         /// </summary>
-        [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }
 
         /// <summary>
@@ -58,7 +52,6 @@ namespace Abby.Models
         /// <summary>
         /// Gets or sets the food type of the menu item.
         /// </summary>
-        [ForeignKey(nameof(FoodTypeId))]
         public FoodType FoodType { get; set; }
         public List<ShoppingCart> ShoppingCarts { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }

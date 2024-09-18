@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Abby.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Abby.DataAccess.FluentConfig;
 
 namespace Abby.DataAccess.Data
 {
@@ -15,5 +16,17 @@ namespace Abby.DataAccess.Data
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new CategoryConfig());
+            builder.ApplyConfiguration(new FoodTypeConfig());
+            builder.ApplyConfiguration(new MenuItemConfig());
+            builder.ApplyConfiguration(new OrderDetailConfig());
+            builder.ApplyConfiguration(new OrderHeaderConfig());
+            builder.ApplyConfiguration(new ShoppingCartConfig());
+        }
     }
 }
