@@ -15,19 +15,18 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary box-shadow mb-3">
-            <div class="container">
+        <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+            <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">The Vault Restaurant</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarColor03">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        
+
                         @{
                             var claimsIdentity = (ClaimsIdentity)User.Identity;
                             if (claimsIdentity.IsAuthenticated)
@@ -44,13 +43,13 @@
                                             <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register Employees</a>
                                         }
                                         @if (User.IsInRole(SD.ManagerRole) ||
-                                            User.IsInRole(SD.FrontDeskRole) ||
-                                            User.IsInRole(SD.CustomerRole))
+                                User.IsInRole(SD.FrontDeskRole) ||
+                                User.IsInRole(SD.CustomerRole))
                                         {
                                             <a class="dropdown-item" asp-area="" asp-page="/Admin/Orders/OrderList">Orders List</a>
                                         }
                                         @if (User.IsInRole(SD.ManagerRole) ||
-                                            User.IsInRole(SD.KitchenRole))
+                                User.IsInRole(SD.KitchenRole))
                                         {
                                             <a class="dropdown-item" asp-area="" asp-page="/Admin/Orders/ChefManagement">Manage Orders</a>
                                         }
@@ -64,10 +63,14 @@
                             </a>
                         </li>
                     </ul>
+                    @* <form class="d-flex">
+                        <input class="form-control me-sm-2" type="search" placeholder="Search">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                    </form> *@
                     <partial name="_LoginPartial" />
                 </div>
             </div>
-        </nav>
+        </nav>        
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -76,7 +79,7 @@
         </main>
     </div>
 
-    <footer class="footer bg-primary">
+    <footer class="footer bg-dark">
         <div class="container text-white">
             &copy; 2024 - The Vault Restaurant
         </div>
