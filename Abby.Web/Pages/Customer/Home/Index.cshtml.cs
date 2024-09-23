@@ -15,7 +15,7 @@ namespace Abby.Web.Pages.Customer.Home
         }
         public List<Category> Categories { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
-        public void OnGet(int? shoppingCartId)
+        public void OnGet(int? shoppingCartId, int? categoryId)
         {
             Categories = _unitOfWork.CategoryRepository
                 .GetAll(orderby:c => c.OrderBy(u => u.DisplayOrder),
