@@ -43,7 +43,15 @@
                             </div>
                             <div class="col-12 text-sm-center col-md-5 text-md-start row pt-3">
                                 <div class="col-4 text-md-right pt-md-3" style="padding-top:5px;">
-                                    <h6><strong>$@item.MenuItem.Price <span class="text-muted">x</span> @item.Count </strong></h6>
+                                    <h6>
+                                        <strong>
+                                            $@item.MenuItem.Price 
+                                            <span class="text-muted">x</span> 
+                                            @item.Count
+                                            <span class="text-muted">:</span>
+                                            $@(item.MenuItem.Price * item.Count)
+                                        </strong>
+                                    </h6>
                                 </div>
                                 <div class="col-6 col-sm-4 col-lg-6">
                                     <button type="submit" class="btn btn-primary"
