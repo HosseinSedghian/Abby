@@ -17,12 +17,12 @@
 
     <div class="row mb-3">
         <div class="col-12">
-            <ul class="nav nav-pills justify-content-center">
+            <ul class="nav justify-content-center d-flex flex-wrap">
                 @foreach (var category in Model.Categories)
                 {
                     <li class="nav-item">
-                        <a class="nav-link" asp-page="Index" asp-route-categoryId="@category.Id">
-                            <h2 class="@(category.Id == selectedCategory.Id ? "text-success" : "text-info")"><b>@category.Name</b></h2>
+                        <a class="nav-link ps-0" asp-page="Index" asp-route-categoryId="@category.Id">
+                            <h2 id="Category_h2" class="@(category.Id == selectedCategory.Id ? "text-success" : "text-info")"><b>@category.Name</b></h2>
                         </a>
                     </li>
                 }

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link rel="stylesheet" href="~/css/shoppingcartanimation.css" />
+    <link rel="stylesheet" href="~/css/CategoryH2.css" />
 </head>
 <body>
     <header>
@@ -40,7 +41,7 @@
                                             <a class="dropdown-item" asp-area="" asp-page="/Admin/FoodTypes/Index">Food Types</a>
                                             <a class="dropdown-item" asp-area="" asp-page="/Admin/MenuItems/Index">Menu Items</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register Employees</a>
+                                            <a class="dropdown-item" asp-area="" asp-page="/Admin/Users/Index">Manage Users</a>
                                         }
                                         @if (User.IsInRole(SD.ManagerRole) ||
                                 User.IsInRole(SD.FrontDeskRole) ||

@@ -1,0 +1,32 @@
+﻿/* Extra small devices (portrait phones, less than 576px) */
+#Category_h2 {
+    font-size: 1rem; /* Default size */
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    #Category_h2 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    #Category_h2 {
+        font-size: 1.4rem;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    #Category_h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    #Category_h2 {
+        font-size: 1.8rem;
+    }
+}
