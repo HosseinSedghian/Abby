@@ -47,7 +47,8 @@
                         <div class="col-6 border-0">
                             <span class="badge p-2 border w-100 bg-info ">@menuItem.FoodType.Name</span>
                         </div>
-                        <div class="col-12 pt-2" style="font-size:13px; text-align:justify;height:210px;overflow:auto">
+                        <div class="col-12 pt-2" style="font-size:13px;text-align:justify;height:207px;overflow:hidden;position:relative;">
+                            <div style="position:absolute;width:100%;height:30%;bottom:0;background:linear-gradient(to bottom,transparent 10%,white 100%);"></div>
                             <p> @Html.Raw(menuItem.Description.Replace("\n", "<br />"))</p>
                         </div>
                         <div class="col-12 p-1">
