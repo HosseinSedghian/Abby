@@ -27,10 +27,6 @@
     <ProjectReference Include="..\Abby.Utility\Abby.Utility.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\menuitems\" />
-  </ItemGroup>
-
 	<ItemGroup>
 		<Content Remove="appsettings.json" />
 		<None Include="appsettings.json" />
@@ -40,9 +36,5 @@
 		<Content Remove="appsettings.Development.json" />
 		<None Include="appsettings.Development.json" />
 	</ItemGroup>
-
-	<PropertyGroup>
-		<ExcludeFoldersFromDeployment>wwwroot\images\menuitems</ExcludeFoldersFromDeployment>
-	</PropertyGroup>
 	
 </Project>

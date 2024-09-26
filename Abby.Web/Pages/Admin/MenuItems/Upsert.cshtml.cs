@@ -64,8 +64,13 @@ namespace Abby.Web.Pages.Admin.MenuItems
             if (files.Count > 0)
             {
                 string webRootPath = _webHostEnvironment.WebRootPath;
-                string filename_new = Guid.NewGuid().ToString();
                 var upload = Path.Combine(webRootPath, @"images\menuitems");
+                if (!System.IO.Directory.Exists(upload))
+                {
+                    System.IO.Directory.CreateDirectory(upload);
+                }
+                string filename_new = Guid.NewGuid().ToString();
+                
                 var extension = Path.GetExtension(files[0].FileName);
                 string serverFilePath = Path.Combine(upload, $"{filename_new}{extension}");
                 using (var fileStream = new FileStream(serverFilePath, FileMode.Create))
