@@ -6,7 +6,7 @@
     Category selectedCategory;
     if (catId == null || catId == 0)
     {
-        selectedCategory = Model.Categories.OrderBy(x => x.DisplayOrder).First();
+        selectedCategory = Model.Categories.OrderBy(x => x.DisplayOrder).FirstOrDefault();
     }
     else
     {
@@ -31,49 +31,54 @@
     </div>
 
     <div class="row">
-        @foreach (var menuItem in selectedCategory.MenuItems)
+        @if (selectedCategory != null)
         {
-            <div class="col-lg-4 col-md-6 pb-4 filter">
-                <div class="card bg-white rounded shadow-sm" style="border:1px solid #222">
-                    <div class="card-body pb-1 row">
-                        <div class="col-8 h5">@menuItem.Name</div>
-                        <div class="col-4 text-end"><span class="text-info h4">$@menuItem.Price</span></div>
-                    </div>
-                    <img class="card-img-top img-fluid d-block mx-auto mb-3" src="@menuItem.ImageUrl" alt="menuitem image">
-                    <div class="card-body p-1 px-3 row">
-                        <div class="col-6">
-                            <span class="badge p-2 border w-100 text-dark bg-warning ">@menuItem.Category.Name</span>
+            foreach (var menuItem in selectedCategory.MenuItems)
+            {
+                <div class="col-lg-4 col-md-6 pb-4 filter">
+                    <div class="card bg-white rounded shadow-sm" style="border:1px solid #222">
+                        <div class="card-body pb-1 row">
+                            <div class="col-8 h5">@menuItem.Name</div>
+                            <div class="col-4 text-end"><span class="text-info h4">$@menuItem.Price</span></div>
                         </div>
-                        <div class="col-6 border-0">
-                            <span class="badge p-2 border w-100 bg-info ">@menuItem.FoodType.Name</span>
-                        </div>
-                        <div class="col-12 pt-2" style="font-size:13px;text-align:justify;height:207px;overflow:hidden;position:relative;">
-                            <div style="position:absolute;width:100%;height:30%;bottom:0;background:linear-gradient(to bottom,transparent 10%,white 100%);"></div>
-                            <p> @Html.Raw(menuItem.Description.Replace("\n", "<br />"))</p>
-                        </div>
-                        <div class="col-12 p-1">
-                            <a asp-page="AddToCart" asp-route-id="@menuItem.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">
-                                Add To Shopping Cart
-                            </a>
+                        <img class="card-img-top img-fluid d-block mx-auto mb-3" src="@menuItem.ImageUrl" alt="menuitem image">
+                        <div class="card-body p-1 px-3 row">
+                            <div class="col-6">
+                                <span class="badge p-2 border w-100 text-dark bg-warning ">@menuItem.Category.Name</span>
+                            </div>
+                            <div class="col-6 border-0">
+                                <span class="badge p-2 border w-100 bg-info ">@menuItem.FoodType.Name</span>
+                            </div>
+                            <div class="col-12 pt-2" style="font-size:13px;text-align:justify;height:207px;overflow:hidden;position:relative;">
+                                <div style="position:absolute;width:100%;height:30%;bottom:0;background:linear-gradient(to bottom,transparent 10%,white 100%);"></div>
+                                <p> @Html.Raw(menuItem.Description.Replace("\n", "<br />"))</p>
+                            </div>
+                            <div class="col-12 p-1">
+                                <a asp-page="AddToCart" asp-route-id="@menuItem.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">
+                                    Add To Shopping Cart
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     </div>
+
+</div>
 
 @section Scripts {
     <script>
         @if (Model.ShoppingCart != null)
         {
             <text>
-                window.onload = function () {
-                    Swal.fire({
-                        title: "Added to shopping cart.",
-                        text: "@Model.ShoppingCart.MenuItem.Name: $@Model.ShoppingCart.MenuItem.Price x @Model.ShoppingCart.Count",
-                        icon: "success"
-                    });
-                };
+                    window.onload = function () {
+                        Swal.fire({
+                            title: "Added to shopping cart.",
+                            text: "@Model.ShoppingCart.MenuItem.Name: $@Model.ShoppingCart.MenuItem.Price x @Model.ShoppingCart.Count",
+                            icon: "success"
+                        });
+                                        };
             </text>
         }
     </script>

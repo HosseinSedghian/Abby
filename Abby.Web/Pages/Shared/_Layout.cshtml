@@ -1,5 +1,8 @@
 ﻿@using Abby.Utility;
 @using System.Security.Claims;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,8 +32,7 @@
                         </li>
 
                         @{
-                            var claimsIdentity = (ClaimsIdentity)User.Identity;
-                            if (claimsIdentity.IsAuthenticated)
+                            if (SignInManager.IsSignedIn(User))
                             {
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Management</a>
@@ -44,13 +46,13 @@
                                             <a class="dropdown-item" asp-area="" asp-page="/Admin/Users/Index">Manage Users</a>
                                         }
                                         @if (User.IsInRole(SD.ManagerRole) ||
-                                User.IsInRole(SD.FrontDeskRole) ||
-                                User.IsInRole(SD.CustomerRole))
+                                            User.IsInRole(SD.FrontDeskRole) ||
+                                            User.IsInRole(SD.CustomerRole))
                                         {
                                             <a class="dropdown-item" asp-area="" asp-page="/Admin/Orders/OrderList">Orders List</a>
                                         }
                                         @if (User.IsInRole(SD.ManagerRole) ||
-                                User.IsInRole(SD.KitchenRole))
+                                            User.IsInRole(SD.KitchenRole))
                                         {
                                             <a class="dropdown-item" asp-area="" asp-page="/Admin/Orders/ChefManagement">Manage Orders</a>
                                         }
